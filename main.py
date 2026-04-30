@@ -149,31 +149,12 @@ def fase_transformacion(df_api: pd.DataFrame, df_scraping: pd.DataFrame) -> pd.D
     guardar_datos(df_transformado)
     logger.info("Archivos intermedios guardados en data/processed/")
 
-    # # 5. Cargar y concatenar mis_queridos_errores.csv 
-    # errores_path = Path("data/raw/mis_queridos_errores.csv")
-    # if errores_path.exists():
-    #     df_errores = pd.read_csv(
-    #         errores_path,
-    #         parse_dates=["fecha", "fecha_extraccion"],
-    #         encoding="utf-8",
-    #         on_bad_lines="skip",
-    #     )
-    #     print(f"\nTamaño antes de errores: {len(df_transformado):,}")
-    #     print(f"Tamaño del CSV errores:  {len(df_errores):,}")
-    #     df_transformado = pd.concat([df_transformado, df_errores], ignore_index=True)
-    #     print(f"Tamaño combinado:        {len(df_transformado):,}")
-
-    #     # Reporte de errores 
-    #     mostrando_errores(df_transformado)
-    # else:
-    #     logger.warning("mis_queridos_errores.csv no encontrado en data/raw/")
-
-    # 6. Limpieza de errores + filtrado de productos válidos
+    # 5. Limpieza de errores + filtrado de productos válidos
     df_limpio   = limpiar_errores(df_transformado)
     df_filtrado = filtrar_productos(df_limpio)
     logger.info("Post-limpieza_errores+filtrado: %s filas", len(df_filtrado))
 
-    # 7. Regla de negocio + Z-score 
+    # 6. Regla de negocio + Z-score 
     df_transformado, stats_gov = aplicar_regla_negocio_y_zscore(df_filtrado)
     print("\nTema 4 aplicado correctamente")
     print(f"Filas iniciales              : {stats_gov['filas_iniciales']:,}")
@@ -181,19 +162,19 @@ def fase_transformacion(df_api: pd.DataFrame, df_scraping: pd.DataFrame) -> pd.D
     print(f"Outliers por Z-score (|z|>3) : {stats_gov['outliers_zscore']:,}")
     print(f"Filas finales                : {stats_gov['filas_finales']:,}")
 
-    # 8. Optimización de memoria 
+    # 7. Optimización de memoria 
     df_transformado, mem_stats = optimizar_memoria(df_transformado)
     print(f"\nOptimización: {mem_stats['mem_antes_mb']:.3f} MB "
           f"→ {mem_stats['mem_despues_mb']:.3f} MB "
           f"(ahorro {mem_stats['ahorro_pct']:.2f}%)")
 
-    # 9. Guardado final
+    # 8. Guardado final
     resultado = guardar_datos(df_transformado)
     print(f"\nArchivos finales generados:")
     print(f"  CSV     : {resultado['csv']}")
     print(f"  Parquet : {resultado['parquet']}")
 
-    # 10. Resumen final 
+    # 9. Resumen final 
     imprimir_resumen(df_transformado)
 
     return df_transformado
