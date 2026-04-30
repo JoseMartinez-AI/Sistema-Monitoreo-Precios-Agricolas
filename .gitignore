@@ -1,0 +1,22 @@
+# ── Entorno virtual ───────────────────────────────────────────
+venv/
+env/
+.venv/
+__pycache__/
+*.py[cod]
+
+# ── Credenciales y variables de entorno ───────────────────────
+.env
+
+# ── Volúmenes de datos (excluidos del repositorio) ────────────
+data/raw/datos_historicos/
+data/raw/datos_tiempo_real/
+data/processed/
+
+# ── Logs ──────────────────────────────────────────────────────
+logs/*.log
+logs/*.json
+
+# ── Herramientas del SO ───────────────────────────────────────
+.DS_Store
+Thumbs.db

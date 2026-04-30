@@ -1,0 +1,31 @@
+# requirements.txt — Sistema de Monitoreo de Brechas y Detección de Especulación
+# Python 3.10+
+
+# Crear entorno e instalar:
+#   python -m venv venv
+#   venv/Scripts/activate        (Windows)
+#   source venv/bin/activate     (Linux / Mac)
+#   pip install -r requirements.txt
+
+# Actulizacion de pip y ejecución de la app:
+# python.exe -m pip install --upgrade pip
+# streamlit run app.py
+
+# --- Data App  ---
+streamlit==1.35.0
+plotly==5.22.0
+
+# --- Datos ---
+pandas==2.2.2
+numpy==1.26.4
+pyarrow==16.1.0
+fastavro==1.9.4
+
+# --- Extracción / scraping ---
+requests==2.32.3
+beautifulsoup4==4.12.3
+lxml==5.2.2
+urllib3==2.2.1
+
+# --- Entorno ---
+python-dotenv==1.0.1
